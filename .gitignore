@@ -4,3 +4,4 @@ backup/
 drizzle/
 *.log
 .DS_Store
+scripts/
