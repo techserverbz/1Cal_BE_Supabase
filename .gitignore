@@ -2,6 +2,7 @@ node_modules/
 dist/
 backup/
 drizzle/
+scripts/
 *.log
 .DS_Store
-scripts/
+
