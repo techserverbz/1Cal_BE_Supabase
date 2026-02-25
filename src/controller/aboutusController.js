@@ -3,7 +3,7 @@ import { db } from "../db/index.js";
 import { aboutUs } from "../schema/aboutUs.js";
 import { newObjectId } from "../utils/objectId.js";
 import { normalizeTimestampFields } from "../utils/date.js";
-
+// hello
 export async function createAboutUs(req, res) {
   try {
     const { name, brief, description, level } = req.body;
