@@ -6,7 +6,12 @@ import { newObjectId } from "../utils/objectId.js";
 
 function toDirectResponse(row) {
   if (!row) return null;
-  return { ...row, _id: row.id };
+  return {
+    ...row,
+    _id: row.id,
+    CreatedAt: row.createdAt ?? null,
+    LastModifiedAt: row.lastModifiedAt ?? null,
+  };
 }
 
 /** Selected columns for direct + template join (used by getMyFeasibilities, getCollaborativeFeasibilities, getAllDirect). */
@@ -323,6 +328,8 @@ export async function getFormulaTemplateById(req, res) {
       masterinput: sortedMergedMasterInput,
       pagesfromother: originalTemplate.pagesfromother || [],
       inputsections: originalTemplate.inputsections || [],
+      CreatedAt: directTemplate.createdAt ?? null,
+      LastModifiedAt: directTemplate.lastModifiedAt ?? null,
     };
 
     return res.status(200).json(result);

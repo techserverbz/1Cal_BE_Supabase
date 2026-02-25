@@ -40,6 +40,7 @@ function toUserResponse(row) {
     _id: row.id,
     first_name: row.firstName ?? row.first_name ?? null,
     last_name: row.lastName ?? row.last_name ?? null,
+    phone_number: row.phoneNumber ?? row.phone_number ?? null,
   };
 }
 
