@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon src/app.js",
     "build": "echo 'No build step'",
-    "start": "nodemon src/index.js",
+    "start": "node src/app.js",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "node src/migrate.js",

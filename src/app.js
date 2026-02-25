@@ -73,4 +73,19 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message });
 });
 
+// Local server: DB check + listen (skipped on Vercel)
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT ?? 8000;
+  try {
+    await db.execute(sql`SELECT 1`);
+    console.log("Supabase connection successful");
+  } catch (err) {
+    console.error("Supabase connection failed:", err);
+    process.exit(1);
+  }
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
 export default app;

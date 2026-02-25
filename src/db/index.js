@@ -3,12 +3,28 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import * as model from "../schema/index.js";
 
-const connectionString = process.env.DATABASE_URL;
-if (!connectionString) {
-  throw new Error("DATABASE_URL is not set");
+let _db = null;
+
+function getDb() {
+  if (!_db) {
+    const connectionString = process.env.DATABASE_URL;
+    if (!connectionString) {
+      throw new Error("DATABASE_URL is not set");
+    }
+    const client = postgres(connectionString, { prepare: false });
+    _db = drizzle(client, { schema: model });
+  }
+  return _db;
 }
 
-// Disable prefetch as it is not supported for "Transaction" pool mode (Supabase pooler)
-const client = postgres(connectionString, { prepare: false });
-export const db = drizzle(client, { schema: model });
+// Lazy init so we don't connect at cold start (avoids serverless crash)
+export const db = new Proxy(
+  {},
+  {
+    get(_target, prop) {
+      return getDb()[prop];
+    },
+  }
+);
+
 export { model };
