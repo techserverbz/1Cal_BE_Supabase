@@ -1,6 +1,7 @@
-import { pgTable, text, varchar, timestamp, jsonb } from "drizzle-orm/pg-core";
+import { text, varchar, timestamp, jsonb } from "drizzle-orm/pg-core";
+import { finalSchema } from "./finalSchema.js";
 
-export const fileTemplates = pgTable("file_templates", {
+export const fileTemplates = finalSchema.table("file_templates", {
   id: varchar("id", { length: 24 }).primaryKey(),
   name: varchar("name", { length: 256 }),
   type: varchar("type", { length: 64 }),

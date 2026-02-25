@@ -1,6 +1,7 @@
-import { pgTable, text, varchar, timestamp, jsonb } from "drizzle-orm/pg-core";
+import { text, varchar, timestamp, jsonb } from "drizzle-orm/pg-core";
+import { finalSchema } from "./finalSchema.js";
 
-export const bills = pgTable("bills", {
+export const bills = finalSchema.table("bills", {
   id: varchar("id", { length: 24 }).primaryKey(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   form: jsonb("form"),

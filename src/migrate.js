@@ -13,11 +13,13 @@ if (!connectionString) {
   process.exit(1);
 }
 
+const dbSchema = process.env.DB_SCHEMA ?? "final";
 const client = postgres(connectionString, { max: 1, prepare: false });
 const db = drizzle(client);
 
 await migrate(db, {
   migrationsFolder: path.join(__dirname, "..", "drizzle"),
+  migrationsSchema: dbSchema,
 });
 
 await client.end();

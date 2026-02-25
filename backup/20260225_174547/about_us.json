@@ -1,0 +1,112 @@
+[
+  {
+    "id": "6870bf2710370fce8660aace",
+    "name": "Ritesh Kadam",
+    "brief": "Accounts and Billing",
+    "description": "Excel Master",
+    "level": 2,
+    "photo_url": null,
+    "created_at": "2025-07-11T07:37:11.726Z",
+    "is_disabled": true
+  },
+  {
+    "id": "6870d722b86745e6b1a7cc12",
+    "name": "Ganesh Sawant",
+    "brief": "Head of Liaisoning Department",
+    "description": "Real estate professional with over 20 years of experience in the industry.\nExpert in land surveys, property evaluations, and development planning.\nWell-versed in project management consultancy (PMC) for residential and commercial projects.\nSkilled in liaising with government authorities and handling legal compliances.\nKnown for delivering end-to-end project support from land acquisition to completion.",
+    "level": 2,
+    "photo_url": "https://1cal.s3.ap-south-1.amazonaws.com/2025%2F11%2F01%2Faboutus%2FcroppedImage1761982958254.png",
+    "created_at": "2025-07-11T09:19:30.513Z",
+    "is_disabled": false
+  },
+  {
+    "id": "68863a29a02d26cd7b483efc",
+    "name": "Sagar Singh",
+    "brief": "CTO",
+    "description": "Sagar Singh is a seasoned software developer with over 7 years of experience specializing in full-stack development using JavaScript, Node.js, and React. He has successfully led and contributed to projects in domains like healthcare, finance, and government services. His expertise spans backend development, API integration, microservices, and DevOps practices. Sagar has worked at multiple firms including Trigyn Technologies, Bmore ITS, and Relinns Technologies, consistently taking client-facing and leadership roles. He is well-versed in Agile methodologies and modern tools like Docker, AWS, and Kafka.",
+    "level": 1,
+    "photo_url": "https://1cal.s3.ap-south-1.amazonaws.com/2025%2F11%2F01%2Faboutus%2FcroppedImage1761982352453.jpg",
+    "created_at": "2025-07-27T14:39:37.816Z",
+    "is_disabled": false
+  },
+  {
+    "id": "686f783d973897a212bb9ca3",
+    "name": "Chinmay Rane",
+    "brief": "Head of PMC Department",
+    "description": "A highly skilled real estate professional specializing in on-field tenant engagement and relationship management.Expert at conducting direct, empathetic, and solution-oriented conversations with tenants across residential and commercial properties.Experienced in addressing tenant concerns, resolving disputes, and facilitating smooth communication between tenants and property management.Builds strong, trust-based relationships that enhance tenant satisfaction and retention.Well-versed in managing site visits, documentation, and property handovers with clarity and professionalism.\nActs as a crucial liaison between tenants, landlords, and facility teams to ensure seamless operations.Proficient in conflict resolution, negotiation, and delivering timely, on-ground service resolutions.Maintains a proactive, approachable, and diplomatic communication style in high-pressure situations.A dependable on-field asset with deep knowledge of tenancy processes, agreements, and community management practices.",
+    "level": 1,
+    "photo_url": "https://1cal.s3.ap-south-1.amazonaws.com/2025%2F11%2F01%2Faboutus%2FcroppedImage1761981235091.png",
+    "created_at": "2025-07-10T08:22:21.008Z",
+    "is_disabled": false
+  },
+  {
+    "id": "6870bf1110370fce8660aacb",
+    "name": "Ritesh Kadam",
+    "brief": "Accounts and Billing",
+    "description": "Expert at crafting automated excel. Has automated more than 100 calculations saving hundreds of productive man hours",
+    "level": 2,
+    "photo_url": "https://1cal.s3.ap-south-1.amazonaws.com/2025%2F11%2F01%2Faboutus%2FcroppedImage1761982710308.jpeg",
+    "created_at": "2025-07-11T07:36:49.570Z",
+    "is_disabled": false
+  },
+  {
+    "id": "68d61a925d0ec4fc6f5a27e2",
+    "name": "Parth Singh",
+    "brief": "Cheif operations officer",
+    "description": "Parth Singh is an emerging personality in the field of Project Management Consulting (PMC), bringing fresh perspective and dedication to building innovative solutions for the construction and real estate sector. As a co-founder of the CRM platform, he focuses on streamlining project execution and management practices, ensuring greater efficiency and transparency. With his growing influence in the PMC domain, Parth is steadily carving out a name as a forward-thinking leader shaping the future of project management",
+    "level": 1,
+    "photo_url": "https://1cal.s3.ap-south-1.amazonaws.com/2025%2F11%2F01%2Faboutus%2FcroppedImage1761982930397.jpg",
+    "created_at": "2025-09-26T04:46:10.183Z",
+    "is_disabled": false
+  },
+  {
+    "id": "686cd05fe7daea9fa648172a",
+    "name": "Yash Mordani",
+    "brief": "BD Head",
+    "description": "A driven real estate professional with hands-on experience at ANAROCK Property Consultants, India’s leading real estate services firm.\nServed as Assistant to the Vice President, managing strategic initiatives and daily executive operations.\nCoordinated high-level client meetings, project reviews, and leadership reporting.\nActively collaborated with ANAROCK’s PropTech teams, including ACRM, ASTRA, and ApnaComplex.\nSupported business development, exclusive project mandates, and market research analysis.\nHandled cross-functional communication between sales, research, and technology teams.\nPlayed a key role in streamlining operational workflows and client engagement processes.\nContributed to ANAROCK’s rapid growth and digital transformation initiatives.\nDemonstrates strong organizational, stakeholder management, and market insight skills.",
+    "level": 1,
+    "photo_url": "https://1cal.s3.ap-south-1.amazonaws.com/2025%2F11%2F01%2Faboutus%2FcroppedImage1761981219044.png",
+    "created_at": "2025-07-08T08:01:35.188Z",
+    "is_disabled": false
+  },
+  {
+    "id": "687003518917d2cfc5b4497a",
+    "name": "Shubham Bhole",
+    "brief": "\"The more the iterations, the higher the probability of success.\"",
+    "description": "Shubham Bhole, is a versatile professional who blends technology with business and architectural expertise. With a strong background in programming along with a B.Tech in Civil Engineering, Shubham skillfully combines software development with business strategy. He excels in creating efficient processes through coding, particularly in performing architectural calculations and optimizations His innovative approach streamlines operations, enhances decision-making, and drives sustainable, tech-driven solutions in the architectural and business.Shubham’s people-centric approach links his success to his team’s performance, focusing on creating efficient and ethical\nbusiness models..\n",
+    "level": 0,
+    "photo_url": "https://1cal.s3.ap-south-1.amazonaws.com/2025%2F11%2F01%2Faboutus%2FcroppedImage1761981095970.jpg",
+    "created_at": "2025-07-10T18:15:45.808Z",
+    "is_disabled": false
+  },
+  {
+    "id": "6870ca08b86745e6b1a7cc04",
+    "name": "Riddhi Mistry",
+    "brief": "Senior Architect",
+    "description": "Architect with 5 years of experience in municipal and design drawings.\nSkilled in preparing plans as per local building regulations and DCR norms.\nProficient in area calculations, FSI analysis, and sanction documentation.\nStrong in visual presentation and client communication.\nCapable of managing projects from concept to approval stage efficiently.",
+    "level": 2,
+    "photo_url": "https://1cal.s3.ap-south-1.amazonaws.com/2025%2F11%2F01%2Faboutus%2FcroppedImage1761982743199.png",
+    "created_at": "2025-07-11T08:23:36.312Z",
+    "is_disabled": false
+  },
+  {
+    "id": "68d61a9f5d0ec4fc6f5a27e4",
+    "name": "Parth Singh",
+    "brief": "Parth Singh is an emerging personality in the field of Project Management Consulting (PMC), bringing fresh perspective and dedication to building innovative solutions for the construction and real estate sector. As a co-founder of the CRM platform, he focuses on streamlining project execution and management practices, ensuring greater efficiency and transparency. With his growing influence in the PMC domain, Parth is steadily carving out a name as a forward-thinking leader shaping the future of project management.",
+    "description": "Parth Singh is an emerging personality in the field of Project Management Consulting (PMC), bringing fresh perspective and dedication to building innovative solutions for the construction and real estate sector. As a co-founder of the CRM platform, he focuses on streamlining project execution and management practices, ensuring greater efficiency and transparency. With his growing influence in the PMC domain, Parth is steadily carving out a name as a forward-thinking leader shaping the future of project management",
+    "level": 1,
+    "photo_url": null,
+    "created_at": "2025-09-26T04:46:23.591Z",
+    "is_disabled": true
+  },
+  {
+    "id": "6870bf1b654098fe314a2ab4",
+    "name": "Ritesh Kadam",
+    "brief": "Accounts and Billing",
+    "description": "Excel Master",
+    "level": 2,
+    "photo_url": null,
+    "created_at": "2025-07-11T07:36:59.858Z",
+    "is_disabled": true
+  }
+]

@@ -4,15 +4,20 @@ import { templates } from "../schema/templates.js";
 import { users } from "../schema/users.js";
 import { versions } from "../schema/versions.js";
 import { newObjectId } from "../utils/objectId.js";
+import { normalizeTimestampFields } from "../utils/date.js";
 
 function toTemplateResponse(row) {
   if (!row) return null;
   return { ...row, _id: row.id };
 }
 
+const TEMPLATE_TIMESTAMP_FIELDS = ["date", "createdAt"];
+
 export async function createTemplate(req, res) {
   try {
-    const [created] = await db.insert(templates).values({ id: newObjectId(), ...req.body }).returning();
+    const body = { id: newObjectId(), ...req.body };
+    normalizeTimestampFields(body, TEMPLATE_TIMESTAMP_FIELDS);
+    const [created] = await db.insert(templates).values(body).returning();
     if (!created) return res.status(400).json({ message: "Error creating template" });
     res.status(201).json({ template: toTemplateResponse(created) });
   } catch (error) {
@@ -28,7 +33,9 @@ export async function copyTemplate(req, res) {
     if (!original) return res.status(404).json({ message: "Template not found" });
 
     const { id: _omit, ...rest } = original;
-    const [clone] = await db.insert(templates).values({ id: newObjectId(), ...rest }).returning();
+    const body = { id: newObjectId(), ...rest };
+    normalizeTimestampFields(body, TEMPLATE_TIMESTAMP_FIELDS);
+    const [clone] = await db.insert(templates).values(body).returning();
     if (!clone) return res.status(500).json({ message: "Error copying template" });
     res.status(201).json({ clone: toTemplateResponse(clone) });
   } catch (error) {
@@ -126,6 +133,7 @@ export async function getTemplateById(req, res) {
 export async function updateTemplate(req, res) {
   try {
     const updateData = { ...req.body };
+    normalizeTimestampFields(updateData, TEMPLATE_TIMESTAMP_FIELDS);
     const [updated] = await db
       .update(templates)
       .set(updateData)

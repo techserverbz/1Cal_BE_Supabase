@@ -2,6 +2,7 @@ import { eq, asc } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { aboutUs } from "../schema/aboutUs.js";
 import { newObjectId } from "../utils/objectId.js";
+import { normalizeTimestampFields } from "../utils/date.js";
 
 export async function createAboutUs(req, res) {
   try {
@@ -38,9 +39,11 @@ export async function getAboutUsById(req, res) {
 
 export async function updateAboutUs(req, res) {
   try {
+    const data = { ...req.body };
+    normalizeTimestampFields(data, ["createdAt"]);
     const [updated] = await db
       .update(aboutUs)
-      .set(req.body)
+      .set(data)
       .where(eq(aboutUs.id, req.params.id))
       .returning();
     if (!updated) return res.status(404).json({ message: "Entry not found" });

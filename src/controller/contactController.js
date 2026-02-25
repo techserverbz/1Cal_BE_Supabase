@@ -3,6 +3,7 @@ import { db } from "../db/index.js";
 import { contacts } from "../schema/contacts.js";
 import { users } from "../schema/users.js";
 import { newObjectId } from "../utils/objectId.js";
+import { normalizeTimestampFields } from "../utils/date.js";
 
 export async function listContacts(req, res) {
   try {
@@ -50,7 +51,9 @@ export async function listContacts(req, res) {
 
 export async function createContact(req, res) {
   try {
-    const [contact] = await db.insert(contacts).values({ id: newObjectId(), ...req.body }).returning();
+    const body = { id: newObjectId(), ...req.body };
+    normalizeTimestampFields(body, ["createdAt"]);
+    const [contact] = await db.insert(contacts).values(body).returning();
     if (!contact) return res.status(500).json({ message: "Error creating contact" });
     return res.status(201).json(contact);
   } catch (error) {
@@ -88,9 +91,11 @@ export async function getContactById(req, res) {
 
 export async function updateContact(req, res) {
   try {
+    const data = { ...req.body };
+    normalizeTimestampFields(data, ["createdAt"]);
     const [updated] = await db
       .update(contacts)
-      .set(req.body)
+      .set(data)
       .where(eq(contacts.id, req.params.id))
       .returning();
     if (!updated) return res.status(404).json({ message: "Contact not found" });

@@ -1,6 +1,7 @@
-import { pgTable, text, varchar, timestamp, jsonb, boolean } from "drizzle-orm/pg-core";
+import { text, varchar, timestamp, jsonb, boolean } from "drizzle-orm/pg-core";
+import { finalSchema } from "./finalSchema.js";
 
-export const directFeasibilities = pgTable("direct_feasibilities", {
+export const directFeasibilities = finalSchema.table("direct_feasibilities", {
   id: varchar("id", { length: 24 }).primaryKey(),
   templateId: varchar("template_id", { length: 24 }).notNull(),
   pages: jsonb("pages").$type("object[]").default([]),

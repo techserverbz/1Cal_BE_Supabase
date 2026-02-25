@@ -33,7 +33,7 @@ import {
 import { sql } from "drizzle-orm";
 
 const argv = process.argv.slice(2).filter((a) => a !== "--truncate");
-const defaultExport = join(process.cwd(), "..", "Feasibility_2026-02-24_14-18-35", "Hello");
+const defaultExport = join(process.cwd(), "./scripts/", "Feasibility_2026-02-25_21-59-47", "Hello");
 const EXPORT_PATH = process.env.MONGO_EXPORT_PATH || argv[0] || defaultExport;
 const TRUNCATE = process.argv.includes("--truncate");
 
@@ -107,7 +107,8 @@ async function loadCollection(dir, baseName) {
 }
 
 async function truncateAll() {
-  console.log("Truncating tables (reverse FK order)...");
+  const schema = process.env.DB_SCHEMA ?? "final";
+  console.log(`Truncating tables in schema "${schema}" (reverse FK order)...`);
   const order = [
     "pdf_download_logs",
     "bills",
@@ -120,8 +121,8 @@ async function truncateAll() {
     "users",
   ];
   for (const table of order) {
-    await db.execute(sql.raw(`TRUNCATE TABLE "${table}" CASCADE`));
-    console.log(`  truncated ${table}`);
+    await db.execute(sql.raw(`TRUNCATE TABLE "${schema}"."${table}" CASCADE`));
+    console.log(`  truncated ${schema}.${table}`);
   }
 }
 

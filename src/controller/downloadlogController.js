@@ -10,11 +10,16 @@ export async function logPdfDownload(req, res) {
     if (!user || !fetchId) {
       return res.status(400).json({ message: "Missing required fields: user or fetchId" });
     }
+    let downloadedAtVal = new Date();
+    if (downloadedAt != null && downloadedAt !== "") {
+      const d = new Date(downloadedAt);
+      if (!Number.isNaN(d.getTime())) downloadedAtVal = d;
+    }
     await db.insert(pdfDownloadLogs).values({
       id: newObjectId(),
       user,
       fetchId,
-      downloadedAt: downloadedAt || new Date(),
+      downloadedAt: downloadedAtVal,
     });
     res.status(201).json({ message: "PDF download logged successfully" });
   } catch (err) {

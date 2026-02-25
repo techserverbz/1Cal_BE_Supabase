@@ -1,8 +1,9 @@
-import { pgTable, pgEnum, text, varchar, boolean, timestamp, jsonb } from "drizzle-orm/pg-core";
+import { text, varchar, boolean, timestamp, jsonb } from "drizzle-orm/pg-core";
+import { finalSchema } from "./finalSchema.js";
 
-export const userRoleEnum = pgEnum("user_role", ["user", "admin", "client"]);
+export const userRoleEnum = finalSchema.enum("user_role", ["user", "admin", "client"]);
 
-export const users = pgTable("users", {
+export const users = finalSchema.table("users", {
   id: varchar("id", { length: 24 }).primaryKey(),
   actualCreatedAt: timestamp("actual_created_at", { withTimezone: true }).defaultNow(),
   name: text("name"),

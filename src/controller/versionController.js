@@ -115,8 +115,13 @@ export async function updateVersion(req, res) {
       inputsections: req.body.inputsections,
       dashboards: req.body.dashboards || [],
       name: req.body.versionname,
-      date: req.body.date,
     };
+    if (req.body.date != null && req.body.date !== "") {
+      const date = new Date(req.body.date);
+      if (!Number.isNaN(date.getTime())) {
+        body.date = date;
+      }
+    }
     const [version] = await db.update(versions).set(body).where(eq(versions.id, id)).returning();
     if (!version) return res.status(404).json({ message: "Version not found" });
     res.status(200).json({ version: toVersionResponse(version) });

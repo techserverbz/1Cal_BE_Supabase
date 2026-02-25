@@ -1,5 +1,6 @@
 node_modules/
 dist/
-
+backup/
+drizzle/
 *.log
 .DS_Store

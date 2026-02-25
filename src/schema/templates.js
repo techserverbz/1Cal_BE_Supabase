@@ -1,6 +1,7 @@
-import { pgTable, text, varchar, boolean, timestamp, jsonb, integer } from "drizzle-orm/pg-core";
+import { text, varchar, boolean, timestamp, jsonb, integer } from "drizzle-orm/pg-core";
+import { finalSchema } from "./finalSchema.js";
 
-export const templates = pgTable("templates", {
+export const templates = finalSchema.table("templates", {
   id: varchar("id", { length: 24 }).primaryKey(),
   pages: jsonb("pages").$type("object[]").default([]),
   masterinput: jsonb("masterinput").$type("object[]").default([]),

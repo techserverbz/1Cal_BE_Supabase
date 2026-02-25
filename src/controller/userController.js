@@ -5,6 +5,7 @@ import { eq, or, asc } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { users } from "../schema/users.js";
 import { newObjectId } from "../utils/objectId.js";
+import { normalizeTimestampFields } from "../utils/date.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 const validRoles = ["user", "admin", "client"];
@@ -192,6 +193,7 @@ export async function updateUser(req, res) {
   const id = req.params.id;
   const newData = { ...req.body };
   if (newData.password) newData.password = await bcrypt.hash(newData.password, 10);
+  normalizeTimestampFields(newData, ["actualCreatedAt"]);
   try {
     const [updated] = await db.update(users).set(newData).where(eq(users.id, id)).returning();
     if (updated) res.json({ message: "User updated successfully", user: toUserResponse(updated) });
