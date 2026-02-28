@@ -157,6 +157,7 @@ export async function saveMasterInput(req, res) {
 }
 
 export async function getFormulaTemplateById(req, res) {
+  console.log("hi")
   try {
     const { id } = req.params;
 
@@ -298,18 +299,24 @@ export async function getFormulaTemplateById(req, res) {
           const val =
             matched?.value != null && matched?.value !== ""
               ? matched.value
-              : importRef.importedMasterInputs?.[0]?.value != null && importRef.importedMasterInputs[0].value !== ""
-                ? importRef.importedMasterInputs[0].value
+              : importRef.importedMasterInputs?.[0]?.overrideValue!= null && importRef.importedMasterInputs[0].overrideValue !== ""
+                ? importRef.importedMasterInputs[0].overrideValue
                 : importedRow.value;
+          const templateValue = importRef.importedMasterInputs?.[0]?.overrideValue!= null && importRef.importedMasterInputs[0].overrideValue !== ""
+          ? importRef.importedMasterInputs[0].overrideValue
+          : importedRow.value;
           const displayName = importRef.importedMasterInputs?.[0]?.overrideDisplayValue != null && importRef.importedMasterInputs[0].overrideDisplayValue !== ""
             ? importRef.importedMasterInputs[0].overrideDisplayValue
             : importedRow.displayName;
+            if(importRef.importedMasterInputs?.[0]?.name == "Plot Area"){
+              console.log(importRef.importedMasterInputs[0]);
+            }
           mergedMasterInput.push({
             ...importedRow,
             value: val,
             displayName,
             hidden: importedRow.hidden || importRef.importedMasterInputs?.[0]?.hidden,
-            templateValue: importRef.importedMasterInputs?.[0]?.value ?? importedRow.value,
+            templateValue: templateValue 
           });
         }
       } catch (e) {

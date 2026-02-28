@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon src/app.js",
     "build": "echo 'No build step'",
-    "start": "node src/app.js",
+    "start": "nodemon src/app.js",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "node src/migrate.js",
