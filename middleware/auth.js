@@ -10,6 +10,7 @@ export function isAuthenticated(req, res, next) {
     }
     jwt.verify(token, JWT_SECRET, (err, user) => {
       if (err) {
+        console.error("[auth] JWT verify error:", err.message);
         return res.status(403).json({ error: "Forbidden - Invalid Token" });
       }
       req.user = user;

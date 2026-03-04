@@ -159,6 +159,7 @@ export async function getAllUsers(req, res) {
     const rows = await db.select().from(users).orderBy(asc(users.username));
     res.json(rows.map(toUserResponse));
   } catch (error) {
+    console.error("[GET /api/user] Error:", error);
     res.status(500).json({ error: error.message });
   }
 }
@@ -175,6 +176,7 @@ export async function resetPassword(req, res) {
     await db.update(users).set({ password: hashed }).where(eq(users.id, user.id));
     res.json({ message: "Password reset successfully." });
   } catch (error) {
+    console.error("[PUT /api/user/editpass] Error:", error);
     res.status(500).json({ error: error.message });
   }
 }
@@ -186,6 +188,7 @@ export async function getUserById(req, res) {
     if (user) res.json(toUserResponse(user));
     else res.status(404).json({ error: "User not found" });
   } catch (error) {
+    console.error("[GET /api/user/:id] Error:", error);
     res.status(500).json({ error: error.message });
   }
 }
@@ -200,6 +203,7 @@ export async function updateUser(req, res) {
     if (updated) res.json({ message: "User updated successfully", user: toUserResponse(updated) });
     else res.status(404).json({ error: "User not found" });
   } catch (error) {
+    console.error("[PUT /api/user/:id] Error:", error);
     res.status(500).json({ error: error.message });
   }
 }
@@ -213,6 +217,7 @@ export async function deleteUser(req, res) {
     const [updated] = await db.select().from(users).where(eq(users.id, id)).limit(1);
     res.json({ message: "User status updated successfully", user: toUserResponse(updated) });
   } catch (error) {
+    console.error("[DELETE /api/user/:id] Error:", error);
     res.status(500).json({ error: error.message });
   }
 }
@@ -221,6 +226,7 @@ export async function checkloginvalidity(req, res) {
   try {
     res.json({ data: true });
   } catch (err) {
+    console.error("[PUT /api/user/check] Error:", err);
     res.status(500).json({ data: false, error: err.message });
   }
 }

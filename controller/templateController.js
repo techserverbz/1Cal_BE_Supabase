@@ -79,7 +79,7 @@ export async function getAllTemplates(req, res) {
     }));
     res.status(200).json({ templates: result });
   } catch (error) {
-    console.error(error);
+    console.error("[PUT /api/template] Error:", error);
     res.status(500).json({ message: "Error getting templates", error: error.message });
   }
 }
@@ -126,6 +126,7 @@ export async function getTemplateById(req, res) {
 
     res.status(200).json({ template: response });
   } catch (error) {
+    console.error("[GET /api/template/:id] Error:", error);
     res.status(500).json({ message: "Error getting template", error: error.message });
   }
 }
