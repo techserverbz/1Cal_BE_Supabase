@@ -23,6 +23,12 @@ function normalize(text) {
   return t;
 }
 
+// Match whole words only (so "hell" does not match inside "hello")
+function toWordBoundaryRegex(word) {
+  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, "i");
+}
+
 /**
  * @param {string} text - Comment body
  * @returns {boolean} - true if profanity detected
@@ -34,7 +40,8 @@ export function containsProfanity(text) {
   const normalizedWords = allWords.map((w) => w.toLowerCase().trim()).filter(Boolean);
   for (const bad of normalizedWords) {
     if (!bad) continue;
-    if (normalized.includes(bad)) return true;
+    // Whole-word match: avoids "hello" matching "hell", "classic" matching "ass", etc.
+    if (toWordBoundaryRegex(bad).test(normalized)) return true;
   }
   return false;
 }
