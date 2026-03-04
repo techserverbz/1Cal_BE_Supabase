@@ -1,6 +1,6 @@
 import express from "express";
 import * as commentController from "../controller/commentController.js";
-import { isAuthenticated } from "../middleware/Auth.js";
+import { isAuthenticated } from "../middleware/auth.js";
 
 const router = express.Router();
 
