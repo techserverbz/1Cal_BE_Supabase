@@ -13,6 +13,7 @@ import specialRoutes from "./routes/specialRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
 import billRoutes from "./routes/billRoutes.js";
 import aboutUsRoutes from "./routes/aboutUsRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
 
 const app = express();
 
@@ -66,6 +67,7 @@ app.use("/special", specialRoutes);
 app.use("/contact", contactRoutes);
 app.use("/bill", billRoutes);
 app.use("/aboutus", aboutUsRoutes);
+app.use("/comments", commentRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {

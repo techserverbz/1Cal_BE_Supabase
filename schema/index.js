@@ -7,3 +7,5 @@ export * from "./aboutUs.js";
 export * from "./bills.js";
 export * from "./pdfDownloadLogs.js";
 export * from "./fileTemplates.js";
+export * from "./commentThreads.js";
+export * from "./comments.js";

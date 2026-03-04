@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
-
+// hello
 export function isAuthenticated(req, res, next) {
   try {
     const token = req.get("Authorization");

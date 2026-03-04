@@ -18,7 +18,7 @@ const client = postgres(connectionString, { max: 1, prepare: false });
 const db = drizzle(client);
 
 await migrate(db, {
-  migrationsFolder: path.join(__dirname, "..", "drizzle"),
+  migrationsFolder: path.join(__dirname, "drizzle"),
   migrationsSchema: dbSchema,
 });
 
