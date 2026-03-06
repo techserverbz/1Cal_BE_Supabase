@@ -1,7 +1,7 @@
 import { text, varchar, boolean, timestamp, jsonb } from "drizzle-orm/pg-core";
 import { finalSchema } from "./finalSchema.js";
 
-export const userRoleEnum = finalSchema.enum("user_role", ["user", "admin", "client"]);
+// export const userRoleEnum = finalSchema.enum("user_role", ["user", "admin", "client"]);
 
 export const users = finalSchema.table("users", {
   id: varchar("id", { length: 24 }).primaryKey(),
@@ -10,7 +10,7 @@ export const users = finalSchema.table("users", {
   username: text("username"),
   email: text("email").notNull().unique(),
   password: text("password").notNull(),
-  role: userRoleEnum("role").notNull(),
+  role: text("role").notNull(),
   paths: jsonb("paths"),
   status: varchar("status", { length: 64 }).default("active"),
   isDisabled: boolean("is_disabled").default(false),

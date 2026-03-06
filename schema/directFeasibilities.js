@@ -17,4 +17,8 @@ export const directFeasibilities = finalSchema.table("direct_feasibilities", {
   collaborators: jsonb("collaborators").$type("string[]").default([]),
   isDisabled: boolean("is_disabled").default(false),
   fixedparameterset: boolean("fixedparameterset").default(false),
+  showFilesAndStories: boolean("show_files_and_stories").default(false),
+  showSlides: boolean("show_slides").default(false),
+  chatBar1Enabled: boolean("chat_bar_1_enabled").default(false),
+  chatBar2Enabled: boolean("chat_bar_2_enabled").default(false),
 });

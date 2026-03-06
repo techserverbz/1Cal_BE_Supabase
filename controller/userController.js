@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import https from "https";
-import { eq, or, asc } from "drizzle-orm";
+import { and, asc, desc, eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { users } from "../schema/users.js";
 import { newObjectId } from "../utils/objectId.js";
@@ -156,8 +156,76 @@ export async function login(req, res) {
 
 export async function getAllUsers(req, res) {
   try {
-    const rows = await db.select().from(users).orderBy(asc(users.username));
-    res.json(rows.map(toUserResponse));
+    const hasListParams = ["page", "limit", "query", "sortBy", "sortDir"].some((k) =>
+      Object.prototype.hasOwnProperty.call(req.query, k)
+    );
+
+    // Backwards compatibility: when called without list params, return the original array payload.
+    if (!hasListParams) {
+      const rows = await db.select().from(users).orderBy(asc(users.username));
+      return res.json(rows.map(toUserResponse));
+    }
+
+    const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+    const limitRaw = String(req.query.limit ?? "50").trim();
+    const query = String(req.query.query ?? "").trim();
+
+    const normalizedLimit = limitRaw.toLowerCase() === "all" ? "all" : String(parseInt(limitRaw, 10) || 50);
+    const limit =
+      normalizedLimit === "all"
+        ? null
+        : [50, 100, 150].includes(Number(normalizedLimit))
+          ? Number(normalizedLimit)
+          : 50;
+
+    const sortBy = String(req.query.sortBy ?? "createdAt").trim();
+    const sortDir = String(req.query.sortDir ?? "desc").toLowerCase() === "asc" ? "asc" : "desc";
+
+    let filter = undefined;
+    if (query) {
+      const pattern = `%${query}%`;
+      const fullNameCond = sql`(coalesce(${users.firstName}, '') || ' ' || coalesce(${users.lastName}, '')) ILIKE ${pattern}`;
+      filter = or(
+        ilike(users.firstName, pattern),
+        ilike(users.lastName, pattern),
+        fullNameCond,
+        ilike(users.email, pattern),
+        ilike(users.phoneNumber, pattern),
+        ilike(users.role, pattern),
+        ilike(users.username, pattern)
+      );
+    }
+
+    const orderExpr =
+      sortBy === "createdAt"
+        ? sortDir === "asc"
+          ? asc(users.actualCreatedAt)
+          : desc(users.actualCreatedAt)
+        : asc(users.username);
+
+    const baseQuery = db.select().from(users);
+    const dataQuery = filter ? baseQuery.where(filter) : baseQuery;
+
+    const listQuery = limit
+      ? dataQuery.orderBy(orderExpr, asc(users.username)).limit(limit).offset((page - 1) * limit)
+      : dataQuery.orderBy(orderExpr, asc(users.username));
+
+    const rows = await listQuery;
+
+    const countQuery = filter
+      ? db.select({ count: sql`count(*)::int` }).from(users).where(filter)
+      : db.select({ count: sql`count(*)::int` }).from(users);
+
+    const [{ count }] = await countQuery;
+    const totalItems = Number(count ?? 0);
+    const totalPages = limit ? Math.ceil(totalItems / limit) : 1;
+
+    return res.json({
+      data: rows.map(toUserResponse),
+      currentPage: limit ? page : 1,
+      totalPages: Math.max(totalPages, 1),
+      totalItems,
+    });
   } catch (error) {
     console.error("[GET /api/user] Error:", error);
     res.status(500).json({ error: error.message });
