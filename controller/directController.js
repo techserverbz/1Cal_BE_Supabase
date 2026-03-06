@@ -1050,6 +1050,41 @@ export async function updateStory(req, res) {
   }
 }
 
+export async function addCustomLink(req, res) {
+  try {
+    const { id } = req.params;
+    const { link, filename, date } = req.body;
+    const [existing] = await db.select().from(directFeasibilities).where(eq(directFeasibilities.id, id)).limit(1);
+    if (!existing) {
+      return res.status(404).json({ message: "Direct feasibility not found" });
+    }
+    const uploadDate = date ? new Date(date) : new Date();
+    const [orderRow] = await db
+      .select({ nextOrder: sql`coalesce(max(${filesTable.order}), -1) + 1` })
+      .from(filesTable)
+      .where(eq(filesTable.directFeasibilityId, id));
+    const nextOrder = Number(orderRow?.nextOrder ?? 0);
+    const fileId = uuidv7();
+    const [row] = await db
+      .insert(filesTable)
+      .values({
+        id: fileId,
+        directFeasibilityId: id,
+        order: nextOrder,
+        uploaddate: uploadDate,
+        filename: filename ?? null,
+        current: link ?? null,
+        prevlinks: [],
+        isDisabled: false,
+      })
+      .returning();
+    return res.status(201).json(fileRowToApi(row));
+  } catch (error) {
+    console.error("addCustomLink error:", error);
+    return res.status(500).json({ success: false, error: error.message });
+  }
+}
+
 export async function addFiles(req, res) {
   try {
     const { id } = req.params;

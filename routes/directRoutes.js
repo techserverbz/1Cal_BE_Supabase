@@ -15,6 +15,7 @@ router.get("/analytics/datewise", directController.getDatewiseGrowthAnalytics);
 router.get("/stories/:id", isAuthenticated, directController.getStoriesByDirectId);
 router.post("/stories/:id", isAuthenticated, directController.addStory);
 router.put("/updatestories/:id/:storyId", isAuthenticated, directController.updateStory);
+router.put("/addcustomlink/:id", isAuthenticated, directController.addCustomLink);
 router.put("/addfiles/:id", isAuthenticated, authorizeRoles("admin"), directController.addFiles);
 router.put("/updatefile/:id/:fileId", isAuthenticated, authorizeRoles("admin"), directController.updateFile);
 router.delete("/files/:id/:fileId", isAuthenticated, authorizeRoles("admin"), directController.deleteFile);
