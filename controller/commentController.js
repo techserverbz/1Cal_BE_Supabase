@@ -62,6 +62,7 @@ export async function getOrCreateThread(req, res) {
         updated_at: comments.updatedAt,
         author_name: users.name,
         author_email: users.email,
+        author_phone: users.phoneNumber,
       })
       .from(comments)
       .leftJoin(users, eq(comments.userId, users.id))
@@ -77,7 +78,7 @@ export async function getOrCreateThread(req, res) {
       body: c.body,
       created_at: c.created_at,
       updated_at: c.updated_at,
-      author: c.author_name || c.author_email ? { name: c.author_name, email: c.author_email } : null,
+      author: (c.author_name || c.author_email || c.author_phone) ? { name: c.author_name, email: c.author_email, phone: c.author_phone } : null,
     }));
 
     return res.status(200).json({
@@ -109,6 +110,7 @@ export async function getComments(req, res) {
         updated_at: comments.updatedAt,
         author_name: users.name,
         author_email: users.email,
+        author_phone: users.phoneNumber,
       })
       .from(comments)
       .leftJoin(users, eq(comments.userId, users.id))
@@ -124,7 +126,7 @@ export async function getComments(req, res) {
       body: c.body,
       created_at: c.created_at,
       updated_at: c.updated_at,
-      author: c.author_name || c.author_email ? { name: c.author_name, email: c.author_email } : null,
+      author: (c.author_name || c.author_email || c.author_phone) ? { name: c.author_name, email: c.author_email, phone: c.author_phone } : null,
     }));
 
     return res.status(200).json({ comments: commentResponses });
@@ -177,6 +179,7 @@ export async function createComment(req, res) {
         updated_at: comments.updatedAt,
         author_name: users.name,
         author_email: users.email,
+        author_phone: users.phoneNumber,
       })
       .from(comments)
       .leftJoin(users, eq(comments.userId, users.id))
@@ -194,7 +197,7 @@ export async function createComment(req, res) {
         body: c.body,
         created_at: c.created_at,
         updated_at: c.updated_at,
-        author: c.author_name || c.author_email ? { name: c.author_name, email: c.author_email } : null,
+        author: (c.author_name || c.author_email || c.author_phone) ? { name: c.author_name, email: c.author_email, phone: c.author_phone } : null,
       },
     });
   } catch (error) {
