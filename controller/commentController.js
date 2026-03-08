@@ -15,6 +15,15 @@ function toThreadResponse(row) {
   return { id: row.id, target_type: row.targetType, target_id: row.targetId, created_at: row.createdAt, _id: row.id };
 }
 
+/** Display name: name, or firstName + lastName merged, or null. */
+function authorDisplayName(c) {
+  const fromName = c.author_name && String(c.author_name).trim();
+  if (fromName) return fromName;
+  const parts = [c.author_first_name, c.author_last_name].filter(Boolean).map((s) => String(s).trim());
+  const merged = parts.join(" ").trim();
+  return merged || null;
+}
+
 /** Get or create a thread for target_type + target_id; return thread + comments. */
 export async function getOrCreateThread(req, res) {
   try {
@@ -61,7 +70,8 @@ export async function getOrCreateThread(req, res) {
         created_at: comments.createdAt,
         updated_at: comments.updatedAt,
         author_name: users.name,
-        author_email: users.email,
+        author_first_name: users.firstName,
+        author_last_name: users.lastName,
         author_phone: users.phoneNumber,
       })
       .from(comments)
@@ -78,7 +88,7 @@ export async function getOrCreateThread(req, res) {
       body: c.body,
       created_at: c.created_at,
       updated_at: c.updated_at,
-      author: (c.author_name || c.author_email || c.author_phone) ? { name: c.author_name, email: c.author_email, phone: c.author_phone } : null,
+      author: (authorDisplayName(c) || c.author_phone) ? { name: authorDisplayName(c), phone: c.author_phone } : null,
     }));
 
     return res.status(200).json({
@@ -109,7 +119,8 @@ export async function getComments(req, res) {
         created_at: comments.createdAt,
         updated_at: comments.updatedAt,
         author_name: users.name,
-        author_email: users.email,
+        author_first_name: users.firstName,
+        author_last_name: users.lastName,
         author_phone: users.phoneNumber,
       })
       .from(comments)
@@ -126,7 +137,7 @@ export async function getComments(req, res) {
       body: c.body,
       created_at: c.created_at,
       updated_at: c.updated_at,
-      author: (c.author_name || c.author_email || c.author_phone) ? { name: c.author_name, email: c.author_email, phone: c.author_phone } : null,
+      author: (authorDisplayName(c) || c.author_phone) ? { name: authorDisplayName(c), phone: c.author_phone } : null,
     }));
 
     return res.status(200).json({ comments: commentResponses });
@@ -178,7 +189,8 @@ export async function createComment(req, res) {
         created_at: comments.createdAt,
         updated_at: comments.updatedAt,
         author_name: users.name,
-        author_email: users.email,
+        author_first_name: users.firstName,
+        author_last_name: users.lastName,
         author_phone: users.phoneNumber,
       })
       .from(comments)
@@ -197,7 +209,7 @@ export async function createComment(req, res) {
         body: c.body,
         created_at: c.created_at,
         updated_at: c.updated_at,
-        author: (c.author_name || c.author_email || c.author_phone) ? { name: c.author_name, email: c.author_email, phone: c.author_phone } : null,
+        author: (authorDisplayName(c) || c.author_phone) ? { name: authorDisplayName(c), phone: c.author_phone } : null,
       },
     });
   } catch (error) {
