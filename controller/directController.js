@@ -83,6 +83,7 @@ function slideRowToApi(slideRow, fileRow) {
     title: slideRow.title ?? "",
     layout: slideRow.layout ?? "image-text",
     backgroundColor: slideRow.backgroundColor ?? null,
+    textBackgroundColor: slideRow.textBackgroundColor ?? null,
     fileId: slideRow.fileId ?? null,
     fileUrl: fileRow?.current ?? null,
     content: slideRow.content ?? null,
@@ -1222,7 +1223,7 @@ export async function serveFileContent(req, res) {
 export async function createSlide(req, res) {
   try {
     const { id } = req.params;
-    const { title, layout, fileId, content, slideOrder, backgroundColor } = req.body || {};
+    const { title, layout, fileId, content, slideOrder, backgroundColor, textBackgroundColor } = req.body || {};
 
     const [existing] = await db.select().from(directFeasibilities).where(eq(directFeasibilities.id, id)).limit(1);
     if (!existing) {
@@ -1244,6 +1245,7 @@ export async function createSlide(req, res) {
         title: title ?? "",
         layout: layout ?? "image-text",
         backgroundColor: backgroundColor ?? null,
+        textBackgroundColor: textBackgroundColor ?? null,
         fileId: fileId || null,
         content: content ?? null,
         slideOrder: nextOrder,
@@ -1279,6 +1281,7 @@ export async function updateSlide(req, res) {
     if (body.title !== undefined) updateData.title = body.title;
     if (body.layout !== undefined) updateData.layout = body.layout;
     if (body.backgroundColor !== undefined) updateData.backgroundColor = body.backgroundColor || null;
+    if (body.textBackgroundColor !== undefined) updateData.textBackgroundColor = body.textBackgroundColor || null;
     if (body.fileId !== undefined) updateData.fileId = body.fileId || null;
     if (body.content !== undefined) updateData.content = body.content;
     if (typeof body.slideOrder === "number") updateData.slideOrder = body.slideOrder;

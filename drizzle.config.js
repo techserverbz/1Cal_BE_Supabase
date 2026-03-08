@@ -9,6 +9,7 @@ if (!connectionString) {
 
 export default defineConfig({
   dialect: "postgresql",
+  schemaFilter: [dbSchema],
   migrations: { schema: dbSchema },
   schema: [
     "./schema/users.js",

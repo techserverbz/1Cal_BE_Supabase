@@ -13,6 +13,7 @@ export const slides = finalSchema.table(
     title: text("title"),
     layout: varchar("layout", { length: 32 }).default("image-text"),
     backgroundColor: text("background_color"),
+    textBackgroundColor: text("text_background_color"),
     fileId: varchar("file_id", { length: 36 }).references(() => files.id, {
       onDelete: "set null",
     }),
